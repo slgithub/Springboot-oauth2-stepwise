@@ -27,6 +27,7 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
                 .withClient("codehub-account-1")
                 .secret("codehub-account-1-secret")
                 .authorizedGrantTypes("client_credentials")
-                .scopes("resource-server-read", "resource-server-write");
+                .scopes("resource-server-read", "resource-server-write")
+                .authorities("ROLE_RS_READ");
     }
 }
