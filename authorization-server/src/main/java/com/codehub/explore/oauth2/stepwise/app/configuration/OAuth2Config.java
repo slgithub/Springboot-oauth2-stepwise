@@ -32,6 +32,16 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 				.authenticationManager(authenticationManager);
 	}
 
+  @Override
+  public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
+      clients.inMemory()
+              .withClient("codehub-account-1")
+              .secret("codehub-account-1-secret")
+              .authorizedGrantTypes("client_credentials")
+              .scopes("resource-server-read", "resource-server-write")
+              .authorities("ROLE_RS_READ");
+  }
+  
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer security) throws Exception {
 		security.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()");
@@ -50,11 +60,5 @@ public class OAuth2Config extends AuthorizationServerConfigurerAdapter {
 		JwtAccessTokenConverter converter = new JwtAccessTokenConverter();
 		converter.setKeyPair(keyStoreKeyFactory.getKeyPair("jwt"));
 		return converter;
-	}
-
-	@Override
-	public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
-		clients.inMemory().withClient("codehub-account-1").secret("codehub-account-1-secret")
-				.authorizedGrantTypes("client_credentials").scopes("resource-server-read", "resource-server-write");
 	}
 }
