@@ -1,7 +1,14 @@
-server.contextPath: /auth
-
+server:
+  contextPath: /auth
+  port: 8080
+  
+  
 logging:
  level:
    org.springframework.security: DEBUG
-server:
- port: 8080
+   
+  
+keystore:
+  password: changeit
+
+ 
